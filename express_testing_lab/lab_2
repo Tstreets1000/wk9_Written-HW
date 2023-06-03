@@ -1,0 +1,67 @@
+require('dotenv').config()
+const express = require('express')
+const mongoose = require('mongoose')
+const jsxEngine = require('jsx-view-engine')
+const PORT = process.env.PORT || 3000
+const Vegetable = require('./models/vegetable')
+const app = express()
+
+app.use(express.json())
+app.set('view engine', 'jsx')
+app.engine('jsx', jsxEngine())
+
+mongoose.connect(process.env.MONGO_URI)
+mongoose.connection.once('open', () => {
+    console.log('connected to mongodb')
+})
+
+// GET /gifs which will list out all gifs
+app.get('/gifs', async (req, res) => {
+    try { 
+      const gifs = await Gif.find({})
+      res.json(gifs)
+    } catch(error) {
+      res.status(200).json({ message: error.message })
+    }
+  })
+
+// GET /gifs/:id which will get a gif with a specific ID
+app.get('/gifs/:id', async (req, res) => {
+    try {
+        const gifs = await Gif.find({})
+        res.json(gifs)
+    } catch(error) {
+        res.status(200).json({ message: error.message })
+    }
+})
+
+// POST /gifs which will add a new gif and return that new gif
+app.post('/gifs', async (req, res)=> {
+    try {
+        const gifs = await Gif.find({})
+        res.json(gifs)
+    } catch(error) {
+        res.status(200).json({ message: error.message })
+    }
+})
+
+// PUT gifs/:id which will update a gif and return that gif
+app.put('/gifs/:id', async (req, res) => {
+    try {
+        const gifs = await Gif.find({})
+        res.json(gifs)
+    } catch(error) {
+        res.status(200).json({ message: error.message })
+    }
+})
+
+// DELETE gifs/:id which will delete a gif.
+app.delete('/gifs/:id', async (req, res) => {
+    try {
+        const gifs = await Gif.find({})
+        res.json(gifs)
+    } catch(error) {
+        res.status(200).json({ message: error.message })
+    }
+})
+
